@@ -43,10 +43,10 @@ export default function Rounds() {
       setSongLine(currentRound.line)
       setColors(currentRound.boxes.map((b) => b.color))
     }
-    else {
+    /*else {
       setSongLine("")
       setColors(splitLine.map(() => "bg-blue-300"))
-    }
+    }*/
   }, [currentRound])
 
   const handleSave = () => {
