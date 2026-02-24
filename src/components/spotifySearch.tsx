@@ -5,10 +5,11 @@ import { SpotifyTrack } from '@/types/spotifytrack'
 import Image from 'next/image'
 
 interface SpotifyProps {
-    onSelectTrack: (track: SpotifyTrack) => void
+    onSelectTrack: (track: SpotifyTrack | undefined) => void,
+    currentTrack: SpotifyTrack | undefined,
 }
 
-const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack}) => {
+const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) => {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SpotifyTrack[]>([])
 
@@ -33,7 +34,7 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack}) => {
         placeholder="Search for a song..."
         className="border p-2 rounded w-full"
       />
-      <Button onClick={searchSpotify} className="mt-2 px-4 py-2 items-center">
+      <Button disabled={!query} onClick={searchSpotify} className="mt-2 px-4 py-2 items-center">
         Search
       </Button>
 
@@ -46,10 +47,10 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack}) => {
               <div className="text-sm text-gray-500">{track.artists.map((a) => a.name).join(', ')}</div>
             </div>
             <Button
-              onClick={() => onSelectTrack(track)}
-              className="ml-auto text-white px-2 py-1 rounded"
+              onClick={() => onSelectTrack(track.id === currentTrack?.id ? undefined : track)}
+              className="h-20 w-50 ml-auto text-white px-2 py-1 rounded"
             >
-              Select
+              {track.id === currentTrack?.id ? 'Deselect' : 'Select'}
             </Button>
           </div>
         ))}

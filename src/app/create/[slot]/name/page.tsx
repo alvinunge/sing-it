@@ -35,7 +35,7 @@ export default function Name() {
     
     return(
             <div className="flex flex-col gap-3 justify-center min-h-screen items-center">
-                <Form placeholder="Name your game" value={gameName} onChange={(e) => setGameName(e.target.value)}/>
+                <Form placeholder="Name your game" value={gameName} onChange={(value) => setGameName(value)}/>
                 <Button onClick={handleSave}> Save </Button>
             </div>
     );

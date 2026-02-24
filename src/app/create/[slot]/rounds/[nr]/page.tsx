@@ -35,19 +35,16 @@ export default function Rounds() {
  }, [slot, round]);
 
   const [songLine, setSongLine] = React.useState("");
-  const splitLine = songLine.split(" ");
+  const splitLine = songLine.split(" ").filter(Boolean);
   const [colors, setColors] = React.useState(() => splitLine.map(() => "bg-blue-300"));
   const [song, setSong] = React.useState<SpotifyTrack>();
 
   React.useEffect(() => {
     if (currentRound) {
       setSongLine(currentRound.line)
+      setSong(currentRound.song)
       setColors(currentRound.boxes.map((b) => b.color))
     }
-    /*else {
-      setSongLine("")
-      setColors(splitLine.map(() => "bg-blue-300"))
-    }*/
   }, [currentRound])
 
   const handleSave = () => {
@@ -150,11 +147,11 @@ export default function Rounds() {
         <Text>
             Round {round}
         </Text>
-        <SpotifySearch onSelectTrack={(track) => {
+        <SpotifySearch currentTrack={song} onSelectTrack={(track) => {
           setSong(track)
         }}/>
 
-        <Form placeholder="Write a line from a song" value={songLine} onChange={(e) => setSongLine(e.target.value)} maxLength={51}/>
+        <Form placeholder="Write a line from a song" value={songLine} onChange={(value) => setSongLine(value)} maxLength={51}/>
 
         <div className={"flex w-full items-center justify-center gap-5"}>
         {splitLine.map((word, index) => (

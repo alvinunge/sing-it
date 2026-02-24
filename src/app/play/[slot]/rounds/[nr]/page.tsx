@@ -136,8 +136,8 @@ export default function Play() {
         <TimerBoard start={startTimer} color={color}/>
         <ScoreBoard slot={slot as string}/>
 
-        <div className={`flex items-end justify-center gap-4 h-80`}>
-        <Button onClick={() => reveal()}> Reveal Song </Button>
+        <div className={`flex items-end justify-center gap-4`}>
+        <Button disabled={!song} onClick={() => reveal()}> Reveal Song </Button>
         {Object.keys((finalRound)).length > 1 ?
             <Button onClick={() => goNextRound(slot as string, nextRound)}> Next Round </Button>
             :
