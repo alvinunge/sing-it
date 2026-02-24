@@ -7,10 +7,10 @@ interface TrashButtonProps {
     className?: string,
 };
 
-const TrashButton: React.FC<TrashButtonProps> = ({onClick, disabled}) => {
+const TrashButton: React.FC<TrashButtonProps> = ({onClick, disabled, className}) => {
 
     const color = disabled ? 'bg-transparent cursor-not-allowed' : 'bg-transparent cursor-pointer'
-    const style = `${color} w-10 h-10`
+    const style = `${color} w-10 h-10 ${className}`
     return(
         <button onClick={onClick} className={style}>
             <TrashIcon />

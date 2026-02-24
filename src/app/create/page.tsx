@@ -46,7 +46,6 @@ export default function Create() {
   
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Logo */}
       <div className="flex justify-center p-8 sm:p-0">
         <Image
           src="/singit.png"
@@ -63,10 +62,10 @@ export default function Create() {
             const game = availableGames.find(g => Number(g.slot) === slot);
 
             return (
-              <div key={slot} className="flex items-center gap-4">
+              <div key={slot} className="relative w-full">
                   <>
                     <Button
-                      className="text-center text-3xl w-70"
+                      className="text-center text-3xl w-full"
                       onClick={() => game ? goToRoundCreation(slot, 1) : goToSlot(slot)}
                     >
                       {game ? game.name : `Slot ${slot}`}
@@ -74,6 +73,7 @@ export default function Create() {
                     <TrashButton
                       disabled={!game}
                       onClick={() => handleDelete(slot)}
+                      className="absolute top-1 right-1 w-8 h-8 p-"
                     >
                     </TrashButton>
                   </>
@@ -82,7 +82,7 @@ export default function Create() {
           })}
 
           <Button
-            className="text-center text-3xl mt-6"
+            className="text-center text-3xl w-full"
             onClick={goBack}
           >
             Go Back

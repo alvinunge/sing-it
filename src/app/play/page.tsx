@@ -18,17 +18,12 @@ export default function Create() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
     const storedGames = JSON.parse(localStorage.getItem("games") || "[]");
     const games = storedGames?.sort((a: Game, b: Game) => Number(a.slot) - Number(b.slot));
     setAvailableGames(games)
   }, [])
 
-  const slot1Game = availableGames.find(g => g.slot === '1');
-  const slot2Game = availableGames.find(g => g.slot === '2');
-  const slot3Game = availableGames.find(g => g.slot === '3');
-  const slot4Game = availableGames.find(g => g.slot === '4');
-  const slot5Game = availableGames.find(g => g.slot === '5');
+  const slots = [1, 2, 3, 4, 5]
 
   return (
     <>
@@ -42,35 +37,18 @@ export default function Create() {
           priority
         />
       </div>
-      <div className="bg-pink-200 text-blue-400 hover:bg-blue-600 bg-pink-400 text-blue-200"></div>
 
       <div className="flex flex-1 justify-center items-center w-full">
         <div className="flex flex-col gap-6">
-        {slot1Game ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(1, 1)}> {slot1Game.name} </Button> 
-        : 
-        <Button className="text-center text-3xl" disabled={true}> Slot 1 </Button>
-        }
-        {slot2Game ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(2, 1)}> {slot2Game.name} </Button> 
-        : 
-        <Button className="text-center text-3xl" disabled={true}> Slot 2 </Button>
-        }
-        {slot3Game ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(3, 1)}> {slot3Game.name} </Button> 
-        : 
-        <Button className="text-center text-3xl" disabled={true}> Slot 3 </Button>
-        }
-        {slot4Game ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(4, 1)}> {slot4Game.name} </Button> 
-        : 
-        <Button className="text-center text-3xl" disabled={true}> Slot 4 </Button>
-        }
-        {slot5Game ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(5, 1)}> {slot5Game.name} </Button> 
-        : 
-        <Button className="text-center text-3xl" disabled={true}> Slot 5 </Button>
-        }
+          {slots.map((slot) => {
+            const game = availableGames.find((g: Game) => Number(g.slot) === slot);
+            return (
+              <div key={slot}>
+              <Button className="text-center text-3xl w-full" disabled={game ? false : true} onClick={() => goToSlot(slot, 1)}> {game ? game.name : `Slot ${slot}`} </Button> 
+              </div>
+            )
+          })}
+
         <Button className="text-center text-3xl" onClick={() => goBack()}> Go Back </Button>
         </div>
       </div>
