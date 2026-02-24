@@ -1,3 +1,5 @@
+import { SpotifyTrack } from "./spotifytrack";
+
 export interface Game {
     id: string; //number later
     name: string;
@@ -13,7 +15,7 @@ export interface Round {
     createdAt: string;
     boxes: Box[];
     nr: number;
-    song?: JSON | undefined;
+    song?: SpotifyTrack | undefined;
 };
 
 export interface Box {

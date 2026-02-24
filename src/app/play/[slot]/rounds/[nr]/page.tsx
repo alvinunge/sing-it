@@ -45,7 +45,7 @@ export default function Play() {
     setFinalRound({...finalRound?.boxes});
     setSong(currentRound.song)
 
-    const initBoxes = (currentRound.boxes || []).map((b) => ({
+    const initBoxes = (currentRound.boxes || []).map((b: Box) => ({
         ...b,
         revealed: false
     }))

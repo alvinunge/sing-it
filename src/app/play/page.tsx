@@ -20,9 +20,15 @@ export default function Create() {
     if (typeof window === "undefined") return;
     
     const storedGames = JSON.parse(localStorage.getItem("games") || "[]");
-    const games = storedGames?.sort((a, b) => Number(a.slot) - Number(b.slot));
+    const games = storedGames?.sort((a: Game, b: Game) => Number(a.slot) - Number(b.slot));
     setAvailableGames(games)
   }, [])
+
+  const slot1Game = availableGames.find(g => g.slot === '1');
+  const slot2Game = availableGames.find(g => g.slot === '2');
+  const slot3Game = availableGames.find(g => g.slot === '3');
+  const slot4Game = availableGames.find(g => g.slot === '4');
+  const slot5Game = availableGames.find(g => g.slot === '5');
 
   return (
     <>
@@ -40,28 +46,28 @@ export default function Create() {
 
       <div className="flex flex-1 justify-center items-center w-full">
         <div className="flex flex-col gap-6">
-        {availableGames.find((g) => g.slot === '1') ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(1, 1)}> {availableGames.find((g) => g.slot === '1').name} </Button> 
+        {slot1Game ?
+        <Button className="text-center text-3xl" onClick={() => goToSlot(1, 1)}> {slot1Game.name} </Button> 
         : 
         <Button className="text-center text-3xl" disabled={true}> Slot 1 </Button>
         }
-        {availableGames.find((g) => g.slot === '2') ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(2, 1)}> {availableGames.find((g) => g.slot === '2').name} </Button> 
+        {slot2Game ?
+        <Button className="text-center text-3xl" onClick={() => goToSlot(2, 1)}> {slot2Game.name} </Button> 
         : 
         <Button className="text-center text-3xl" disabled={true}> Slot 2 </Button>
         }
-        {availableGames.find((g) => g.slot === '3') ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(3, 1)}> {availableGames.find((g) => g.slot === '3').name} </Button> 
+        {slot3Game ?
+        <Button className="text-center text-3xl" onClick={() => goToSlot(3, 1)}> {slot3Game.name} </Button> 
         : 
         <Button className="text-center text-3xl" disabled={true}> Slot 3 </Button>
         }
-        {availableGames.find((g) => g.slot === '4') ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(4, 1)}> {availableGames.find((g) => g.slot === '4').name} </Button> 
+        {slot4Game ?
+        <Button className="text-center text-3xl" onClick={() => goToSlot(4, 1)}> {slot4Game.name} </Button> 
         : 
         <Button className="text-center text-3xl" disabled={true}> Slot 4 </Button>
         }
-        {availableGames.find((g) => g.slot === '5') ?
-        <Button className="text-center text-3xl" onClick={() => goToSlot(5, 1)}> {availableGames.find((g) => g.slot === '5').name} </Button> 
+        {slot5Game ?
+        <Button className="text-center text-3xl" onClick={() => goToSlot(5, 1)}> {slot5Game.name} </Button> 
         : 
         <Button className="text-center text-3xl" disabled={true}> Slot 5 </Button>
         }

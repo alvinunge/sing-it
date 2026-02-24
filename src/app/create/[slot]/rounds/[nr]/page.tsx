@@ -8,6 +8,7 @@ import Text from "@/components/text"
 import { Game, Round, Box } from "@/types/game";
 import BoxStyle from "@/components/box"
 import SpotifySearch from "@/components/spotifySearch";
+import { SpotifyTrack } from "@/types/spotifytrack";
 
 
 export default function Rounds() {
@@ -36,7 +37,7 @@ export default function Rounds() {
   const [songLine, setSongLine] = React.useState("");
   const splitLine = songLine.split(" ");
   const [colors, setColors] = React.useState(() => splitLine.map(() => "bg-blue-300"));
-  const [song, setSong] = React.useState<JSON>();
+  const [song, setSong] = React.useState<SpotifyTrack>();
 
   React.useEffect(() => {
     if (currentRound) {
