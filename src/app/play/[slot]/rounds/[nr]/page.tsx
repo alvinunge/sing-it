@@ -51,7 +51,7 @@ export default function Play() {
     }))
 
     setBoxes(initBoxes);
-  }, [slot, nr]);
+  }, [slot, nr, nextRound]);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);

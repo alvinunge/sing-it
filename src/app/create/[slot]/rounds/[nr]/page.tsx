@@ -11,7 +11,6 @@ import SpotifySearch from "@/components/spotifySearch";
 
 
 export default function Rounds() {
-  if (typeof window === 'undefined') return;
   
   const router = useRouter();
   const params = useParams();
@@ -19,18 +18,25 @@ export default function Rounds() {
   const slot = (params.slot);
   const nextRound = round + 1;
   const prevRound = round - 1;
+  const [currentRound, setCurrentRound] = React.useState<Round>();
+  const [currentGame, setCurrentGame] = React.useState<Game>();
+  const [rounds, setRounds] = React.useState<Round[]>([]);
+  const [currentGameList, setCurrentGameList] = React.useState<Game[]>([]);
 
-  const currentGameList: Game[] = JSON.parse(localStorage.getItem("games") || "[]");
-  const currentGame = currentGameList.find(g => g.slot === slot);
-  const rounds = currentGame?.rounds;
-  const currentRound = currentGame?.rounds?.find(r => r.nr === round);
+  React.useEffect(() => {
+    const currentGameList: Game[] = JSON.parse(localStorage.getItem("games") || "[]");
+    const currentGame = currentGameList.find(g => g.slot === slot);
 
+    setCurrentRound(currentGame?.rounds?.find(r => r.nr === round));
+    setCurrentGame(currentGame);
+    setRounds(currentGame?.rounds || []);
+    setCurrentGameList(currentGameList || []);
+ }, [slot, round]);
 
   const [songLine, setSongLine] = React.useState("");
   const splitLine = songLine.split(" ");
   const [colors, setColors] = React.useState(() => splitLine.map(() => "bg-blue-300"));
   const [song, setSong] = React.useState<JSON>();
-
 
   React.useEffect(() => {
     if (currentRound) {
@@ -41,7 +47,7 @@ export default function Rounds() {
       setSongLine("")
       setColors(splitLine.map(() => "bg-blue-300"))
     }
-  }, [round])
+  }, [currentRound])
 
   const handleSave = () => {
 

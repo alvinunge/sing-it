@@ -1,14 +1,16 @@
 'use client'
 import { useState } from 'react'
 import Button  from '@/components/button'
+import { SpotifyTrack } from '@/types/spotifytrack'
+import Image from 'next/image'
 
 interface SpotifyProps {
-    onSelectTrack: (track: any) => void
+    onSelectTrack: (track: SpotifyTrack) => void
 }
 
 const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack}) => {
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<SpotifyTrack[]>([])
 
   const searchSpotify = async () => {
     const tokenRes = await fetch('/api/spotify-token')
@@ -38,10 +40,10 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack}) => {
       <div className="mt-4 flex flex-col bg-pink-400 gap-2">
         {results.map((track) => (
           <div key={track.id} className="flex items-center gap-4">
-            {track.album.images[0] && <img src={track.album.images[0].url} alt={track.name} width={50} height={50} />}
+            {track.album.images[0] && <Image src={track.album.images[0].url} alt={track.name} width={50} height={50} />}
             <div>
               <div>{track.name}</div>
-              <div className="text-sm text-gray-500">{track.artists.map((a: any) => a.name).join(', ')}</div>
+              <div className="text-sm text-gray-500">{track.artists.map((a) => a.name).join(', ')}</div>
             </div>
             <Button
               onClick={() => onSelectTrack(track)}

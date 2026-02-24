@@ -3,7 +3,7 @@
 import React from 'react';
 import Form from "@/components/form";
 import Button from "@/components/button";
-import { Game, Round } from "@/types/game";
+import { Game } from "@/types/game";
 import { useRouter, useParams } from "next/navigation";
 
 export default function Name() {
