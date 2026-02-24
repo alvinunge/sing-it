@@ -124,13 +124,13 @@ export default function Rounds() {
   };
 
 
-  const handleColorRed = (index) =>{
+  const handleColorRed = (index: number) =>{
     const updated = [...colors];
     updated[index] = "bg-red-400";
     setColors(updated)
   };
 
-  const handleColorBlue = (index) =>{
+  const handleColorBlue = (index: number) =>{
     const updated = [...colors];
     updated[index] = "bg-blue-300";
     setColors(updated)
