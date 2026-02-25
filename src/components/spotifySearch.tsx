@@ -26,29 +26,57 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) =>
   }
 
   return (
-    <div className="flex flex-col mt-4 items-center justify-center">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for a song..."
-        className="border p-2 rounded w-full"
-      />
-      <Button disabled={!query} onClick={searchSpotify} className="mt-2 px-4 py-2 items-center">
-        Search
-      </Button>
-
-      <div className="mt-4 flex flex-col bg-pink-400 gap-2">
+    <div className="w-full max-w-md mx-auto bg-gradient-to-b from-blue-300 to-pink-300 rounded-xl shadow-md p-4 space-y-4">
+      
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Choose a song..."
+          className="flex-1 border rounded-md px-3 py-2 text-sm text-black font-bold focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <Button
+          disabled={!query}
+          onClick={searchSpotify}
+          className="px-4 py-2 text-sm"
+        >
+          Search
+        </Button>
+      </div>
+  
+      <div className="space-y-2 max-h-72 min-h-[18rem] overflow-y-auto">
         {results.map((track) => (
-          <div key={track.id} className="flex items-center gap-4">
-            {track.album.images[0] && <Image src={track.album.images[0].url} alt={track.name} width={50} height={50} />}
-            <div>
-              <div>{track.name}</div>
-              <div className="text-sm text-gray-500">{track.artists.map((a) => a.name).join(', ')}</div>
+          <div
+            key={track.id}
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            {track.album.images[0] && (
+              <Image
+                src={track.album.images[0].url}
+                alt={track.name}
+                width={40}
+                height={40}
+                className="rounded"
+              />
+            )}
+  
+            <div className="flex-1 min-w-0">
+              <div className="text-sm text-black font-medium truncate">
+                {track.name}
+              </div>
+              <div className="text-xs text-black truncate">
+                {track.artists.map((a) => a.name).join(', ')}
+              </div>
             </div>
+  
             <Button
-              onClick={() => onSelectTrack(track.id === currentTrack?.id ? undefined : track)}
-              className="h-20 w-50 ml-auto text-white px-2 py-1 rounded"
+              onClick={() =>
+                onSelectTrack(
+                  track.id === currentTrack?.id ? undefined : track
+                )
+              }
+              className="text-xs"
             >
               {track.id === currentTrack?.id ? 'Deselect' : 'Select'}
             </Button>
@@ -57,6 +85,7 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) =>
       </div>
     </div>
   )
+  
 }
 
 export default SpotifySearch

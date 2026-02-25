@@ -20,17 +20,7 @@ export default function HowToPlay() {
 
     return (
     <>
-    <div className="flex flex-col min-h-screen gap-4">
-        <div className="flex justify-center p-8 sm:p-0">
-        <Image
-          src="/singit.png"
-          alt="SingIt Logo"
-          width={180}
-          height={38}
-          priority
-        />
-        </div>
-
+    <div className="flex flex-col min-h-screen gap-4 pt-6">   
         <InstructionsBoard />
         <div className="flex w-full items-center justify-center gap-8">
         {splitLine.map((word, index) =>
@@ -39,8 +29,9 @@ export default function HowToPlay() {
             </div>
         )}
         </div>
-        <div className="flex items-center justify-center">
-        <Button className="text-center text-3xl" onClick={() => go(`/`)}> Go Back </Button>
+        <div className="flex-grow"/>
+        <div className="flex justify-center pb-6">
+            <Button className="text-center text-3xl" onClick={() => go(`/`)}> Go Back </Button>
         </div>
      </div>
 

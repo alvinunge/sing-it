@@ -136,14 +136,8 @@ export default function Rounds() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center p-8 sm:p-0 gap-5">
-        <Image
-          src="/singit.png"
-          alt="SingIt Logo"
-          width={180}
-          height={38}
-          priority
-        />
+    <div className="min-h-screen flex flex-col">
+      <div className="flex flex-col items-center p-8 gap-5">       
         <Text>
             Round {round}
         </Text>
@@ -152,39 +146,33 @@ export default function Rounds() {
         }}/>
 
         <Form placeholder="Write a line from a song" value={songLine} onChange={(value) => setSongLine(value)} maxLength={51}/>
-
-        <div className={"flex w-full items-center justify-center gap-5"}>
+        <div className="flex flex-row gap-5">
         {splitLine.map((word, index) => (
-         // <>
           <div key={index} className={`flex flex-col`}>
             <BoxStyle word={word.toLocaleUpperCase()} color={colors[index] ? colors[index] : "bg-blue-300"}/>
               <div className={`flex flex-row items-center justify-center gap-5`}>
                 <button className={`w-4 h-4 bg-blue-300 mt-2`} onClick={() => handleColorBlue(index)}>  </button>
                 <button className={`w-4 h-4 bg-red-400 mt-2`} onClick={() => handleColorRed(index)}>  </button>
-                </div>
+              </div>
             </div>
-          //</>         
         ))}
         </div>
-        
         </div>
-
+        <div className="flex-grow" />
         <>
-        <div className="flex flex-row items-center mt-60 w-full">
-  <div className="absolute left-1/2 transform -translate-x-1/2 flex gap-5">
-    <Button onClick={() => goToPrevRound(slot as string, prevRound)} disabled={round === 1}>
-      &larr;
-    </Button>
-    <Button onClick={() => goToNextRound(slot as string, nextRound)} disabled={round === 10 || splitLine.length < 1}>
-      &rarr;
-    </Button>
-  </div>
-
-  <div className="ml-auto pr-10">
-    <Button onClick={() => finish()}>Finish</Button>
-  </div>
-</div>
+          <div className="flex justify-center gap-5 pb-8">
+            <Button onClick={() => goToPrevRound(slot as string, prevRound)} disabled={round === 1}>
+              &larr;
+            </Button>
+            <Button onClick={() => goToNextRound(slot as string, nextRound)} disabled={round === 10 || splitLine.length < 1}>
+              &rarr;
+            </Button>
+            <div className="">
+            <Button onClick={() => finish()}>Finish</Button>
+            </div>
+          </div>
         </>
+      </div>
     </>
   );
 }
