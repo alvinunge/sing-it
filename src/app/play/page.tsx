@@ -44,7 +44,7 @@ export default function Create() {
             const game = availableGames.find((g: Game) => Number(g.slot) === slot);
             return (
               <div key={slot}>
-              <Button className="text-center text-3xl w-full" disabled={game ? false : true} onClick={() => goToSlot(slot, 1)}> {game ? game.name : `Slot ${slot}`} </Button> 
+              <Button className="text-center text-3xl w-full" disabled={(game?.rounds.length) ? false : true} onClick={() => goToSlot(slot, 1)}> {game ? game.name : `Slot ${slot}`} </Button> 
               </div>
             )
           })}

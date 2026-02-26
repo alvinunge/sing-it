@@ -42,8 +42,8 @@ const ScoreBoard: React.FC<ScoreBoardProps> = ({slot}) => {
           </div>
           <div className="absolute rounded bg-black mt-1.5 w-55.5 h-29"></div>
           <div className="absolute flex flex-col rounded bg-blue-300 mt-2 w-54 h-28 items-center justify-center">
-              <div className="text-xl font-bold"> Team 1: {team1Score} <button className="w-6 rounded bg-black ml-10" onClick={() => setTeam1Score(s => s+1)}> + </button>  <button className="w-6 rounded bg-black ml-2" onClick={() => setTeam1Score(s => s-1)}> - </button> </div>
-              <div className="text-xl font-bold mt-2"> Team 2: {team2Score} <button className="w-6 rounded bg-black ml-10" onClick={() => setTeam2Score(s => s+1)}> + </button>  <button className="w-6 rounded bg-black ml-2" onClick={() => setTeam2Score(s => s-1)}> - </button> </div>
+              <div className="text-xl font-bold"> Team 1: {team1Score} <button disabled={team1Score >= 99} className="w-6 rounded bg-black ml-10" onClick={() => setTeam1Score(s => s+1)}> + </button>  <button disabled={team1Score <= 0} className="w-6 rounded bg-black ml-2" onClick={() => setTeam1Score(s => s-1)}> - </button> </div>
+              <div className="text-xl font-bold mt-2"> Team 2: {team2Score} <button disabled={team2Score >= 99} className="w-6 rounded bg-black ml-10" onClick={() => setTeam2Score(s => s+1)}> + </button>  <button disabled={team2Score <= 0} className="w-6 rounded bg-black ml-2" onClick={() => setTeam2Score(s => s-1)}> - </button> </div>
           </div>
           <div className="absolute top-32 w-5 bg-black -mb-2 z-1" style={{ height: `calc(100vh - 46rem)` }}> </div>
           <div className="absolute top-32 w-3.5 bg-pink-200 -mb-2 z-2" style={{ height: `calc(100vh - 46rem)` }}> </div>

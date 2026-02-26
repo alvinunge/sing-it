@@ -66,7 +66,7 @@ export default function Score() {
             </motion.div>
 
             <div className="mt-6">
-                <Button onClick={goBack}>Go back</Button>
+                <Button onClick={goBack}>Go Back</Button>
             </div>
         </div>
     )

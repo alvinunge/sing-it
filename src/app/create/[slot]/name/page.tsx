@@ -29,7 +29,7 @@ export default function Name() {
        };
 
        localStorage.setItem("games", JSON.stringify([...storedGames, newGame]));
-       router.push(`/create/`);
+       router.push(`/create/${slot}/rounds/1`);
     }
 
     

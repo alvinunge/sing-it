@@ -30,6 +30,7 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) =>
       
       <div className="flex gap-2">
         <input
+          maxLength={50}
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
