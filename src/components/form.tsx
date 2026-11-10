@@ -24,9 +24,8 @@ const Form: React.FC<FormProps> = ({className ='w-[70vw] h-[10vh] border-dotted 
         input = input.replace(/\s+/g, ' ').trimStart();
 
         const words = input.split(' ').filter(Boolean);
-        console.log(words)
 
-        if (words.length <= maxWords && input.length < maxLength) {
+        if (words.length <= maxWords && input.length <= maxLength) {
             onChange?.(input)
         }
     }

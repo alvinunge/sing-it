@@ -8,7 +8,11 @@ import Text from "@/components/text"
 import { Game, Round, Box } from "@/types/game";
 import BoxStyle from "@/components/box"
 import SpotifySearch from "@/components/spotifySearch";
+import LyricsPicker from "@/components/lyricsPicker";
 import { SpotifyTrack } from "@/types/spotifytrack";
+
+const MAX_LINE_LENGTH = 50;
+const MAX_LINE_WORDS = 10;
 
 
 export default function Rounds() {
@@ -141,11 +145,24 @@ export default function Rounds() {
         <Text>
             Round {round}
         </Text>
-        <SpotifySearch currentTrack={song} onSelectTrack={(track) => {
-          setSong(track)
-        }}/>
+        <div className="flex flex-wrap justify-center items-start gap-5 w-full">
+          <SpotifySearch currentTrack={song} onSelectTrack={(track) => {
+            setSong(track)
+          }}/>
+          {song && (
+            <LyricsPicker
+              track={song}
+              maxLength={MAX_LINE_LENGTH}
+              maxWords={MAX_LINE_WORDS}
+              onPick={(line) => {
+                setSongLine(line)
+                setColors(line.split(" ").map(() => "bg-blue-300"))
+              }}
+            />
+          )}
+        </div>
 
-        <Form placeholder="Write a line from a song" value={songLine} onChange={(value) => setSongLine(value)} maxLength={51}/>
+        <Form placeholder="Write a line from a song" value={songLine} onChange={(value) => setSongLine(value)} maxLength={MAX_LINE_LENGTH} maxWords={MAX_LINE_WORDS}/>
         <div className="flex flex-row gap-5">
         {splitLine.map((word, index) => (
           <div key={index} className={`flex flex-col`}>
