@@ -12,17 +12,23 @@ interface SpotifyProps {
 const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) => {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SpotifyTrack[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [searching, setSearching] = useState(false)
 
   const searchSpotify = async () => {
-    const tokenRes = await fetch('/api/spotify-token')
-    const tokenData = await tokenRes.json()
-    const token = tokenData.access_token
-
-    const res = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    const data = await res.json()
-    setResults(data.tracks.items)
+    setSearching(true)
+    setError(null)
+    try {
+      const res = await fetch(`/api/spotify-search?q=${encodeURIComponent(query)}`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'Search failed')
+      setResults(data.tracks)
+    } catch (err) {
+      setResults([])
+      setError(err instanceof Error ? err.message : 'Search failed')
+    } finally {
+      setSearching(false)
+    }
   }
 
   return (
@@ -38,14 +44,16 @@ const SpotifySearch: React.FC<SpotifyProps> = ({onSelectTrack, currentTrack}) =>
           className="flex-1 border rounded-md px-3 py-2 text-sm text-black font-bold focus:outline-none focus:ring-2 focus:ring-pink-400"
         />
         <Button
-          disabled={!query}
+          disabled={!query.trim() || searching}
           onClick={searchSpotify}
           className="px-4 py-2 text-sm"
         >
-          Search
+          {searching ? 'Searching...' : 'Search'}
         </Button>
       </div>
-  
+
+      {error && <p className="text-sm font-bold text-red-700">{error}</p>}
+
       <div className="space-y-2 max-h-72 min-h-[18rem] overflow-y-auto">
         {results.map((track) => (
           <div
